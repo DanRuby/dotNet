@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A462A9D0-29D2-4E31-AE70-50B6D5C591D4}</ProjectGuid>
+    <ProjectGuid>{05044627-F044-46B0-9498-7698BAB7DCDD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -37,17 +37,31 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\IAnimalCreateService.cs" />
+    <Compile Include="Contracts\IAnimalGetService.cs" />
+    <Compile Include="Contracts\IAnimalUpdateService.cs" />
+    <Compile Include="Contracts\IShelterCreateService.cs" />
+    <Compile Include="Contracts\IShelterValidateService.cs" />
+    <Compile Include="Implementation\AnimalCreateService.cs" />
+    <Compile Include="Implementation\AnimalGetService.cs" />
+    <Compile Include="Implementation\AnimalUpdateService.cs" />
+    <Compile Include="Implementation\ShelterCreateService.cs" />
+    <Compile Include="Implementation\ShelterValidateService.cs" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Animal.cs" />
-    <Compile Include="Contracts\IAnimalIdentity.cs" />
-    <Compile Include="Contracts\IShelterContainer.cs" />
-    <Compile Include="Models\AnimalIdentityModel.cs" />
-    <Compile Include="Models\AnimalUpdateModel.cs" />
-    <Compile Include="Shelter.cs" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{5035d19c-7a52-4b8b-a996-22ecd28d7bb8}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{a462a9d0-29d2-4e31-ae70-50b6d5c591d4}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
