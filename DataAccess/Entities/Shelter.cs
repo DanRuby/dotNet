@@ -9,7 +9,6 @@ namespace DataAccess.Entities
         public Shelter()
         {
             Animals = new HashSet<Animal>();
-            Children = new HashSet<Shelter>();
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,10 +16,9 @@ namespace DataAccess.Entities
 
         public string Name { get; set; }
 
-        public int? ParentId { get; set; }
-
-        public virtual Shelter Parent { get; set; }
+        public string Address { get; set; }  
+  
         public virtual ICollection<Animal> Animals { get; set; }
-        public virtual ICollection<Shelter> Children { get; set; }
+  
     }
 }

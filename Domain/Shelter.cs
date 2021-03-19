@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public Shelter Parent { get; set; }
+        public string Address { get; set; }
 
     }
 }

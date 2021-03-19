@@ -4,7 +4,7 @@ using Domain.Models;
 
 namespace BLL.Contracts
 {
-    interface IAnimalCreateService
+    public interface IAnimalCreateService
     {
         Task<Animal> AsyncCreate(AnimalUpdateModel animal);
     }

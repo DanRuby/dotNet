@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A462A9D0-29D2-4E31-AE70-50B6D5C591D4}</ProjectGuid>
+    <ProjectGuid>{0AF55D81-13B5-4B92-848C-25D95F5D9EDE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -37,19 +37,22 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Compile Include="Animal.cs" />
-    <Compile Include="Contracts\IAnimalIdentity.cs" />
-    <Compile Include="Contracts\IShelterContainer.cs" />
-    <Compile Include="Models\AnimalIdentityModel.cs" />
-    <Compile Include="Models\AnimalUpdateModel.cs" />
-    <Compile Include="Models\ShelterIdentityModel.cs" />
-    <Compile Include="Models\ShelterUpdateModel.cs" />
-    <Compile Include="Shelter.cs" />
+    <Compile Include="AnimalCreateDTO.cs" />
+    <Compile Include="AnimalDTO.cs" />
+    <Compile Include="AnimalUpdateDTO.cs" />
+    <Compile Include="ShelterCreateDTO.cs" />
+    <Compile Include="ShelterDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

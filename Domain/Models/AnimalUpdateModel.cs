@@ -9,6 +9,7 @@ namespace Domain.Models
 
 
         public string Name { get; set; }
+        public decimal MoneyNeededPerMonth { get; set; }
 
         public DateTime BirthDate { get; set; }
 

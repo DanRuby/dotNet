@@ -1,23 +1,19 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataAccess.Entities
+namespace Client
 {
-    public class Animal
+    public class AnimalCreateDTO
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
+        [Required(ErrorMessage = "Необходима кличка")]
         public string Name { get; set; }
-
         public DateTime BirthDate { get; set; }
-
+        [Required(ErrorMessage = "Необходима дата прибытия")]
         public DateTime ArrivalDate { get; set; }
+
+        [Required(ErrorMessage = "Необходима стоимость содержания")]
         public decimal MoneyNeededPerMonth { get; set; }
 
         public int? ShelterId { get; set; }
-
-        public virtual Shelter Shelter { get; set; }
     }
 }

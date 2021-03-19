@@ -5,7 +5,7 @@ using Domain.Contracts;
 
 namespace BLL.Contracts
 {
-    interface IAnimalGetService
+    public interface IAnimalGetService
     {
         Task<IEnumerable<Animal>> AsyncGet();
 
