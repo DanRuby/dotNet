@@ -8,6 +8,6 @@ namespace BLL.Contracts
 {
     public interface IAnimalDeleteService
     {
-        public Task Delete(IAnimalIdentity animalId); 
+        public Task DeleteAsynnc(IAnimalIdentity animalId); 
     }
 }

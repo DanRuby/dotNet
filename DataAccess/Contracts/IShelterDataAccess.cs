@@ -13,5 +13,8 @@ namespace DataAccess.Contracts
         Task<Shelter> AsyncGet(IShelterContainer shelter);
         Task<Shelter> AsyncInsert(ShelterUpdateModel shelter);
 
+        Task AsyncDelete(IShelterContainer shelterId);
+
+        Task<Shelter> AsyncUpdate(ShelterUpdateModel shelter);
     }
 }

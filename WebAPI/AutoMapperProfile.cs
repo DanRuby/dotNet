@@ -25,7 +25,6 @@ namespace WebAPI
             this.CreateMap<ShelterUpdateModel, DataAccess.Entities.Shelter>();
             this.CreateMap<ShelterUpdateModel, Domain.Shelter>();
             this.CreateMap<Domain.Shelter, DataAccess.Entities.Shelter>();
-            this.CreateMap<ShelterUpdateModel, DataAccess.Entities.Shelter >();
             this.CreateMap<ShelterDTO, ShelterUpdateModel>();
         }
     }

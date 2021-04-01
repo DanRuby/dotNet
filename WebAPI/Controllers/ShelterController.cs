@@ -19,14 +19,19 @@ namespace WebAPI.Controllers
         private ILogger<AnimalController> logger { get; }
         private IShelterCreateService shelterCreateService { get; }
         private IShelterGetService shelterGetService { get; }
+        private IShelterDeleteService shelterDeleteService { get; }
+        private IShelterUpdateService shelterUpdateService { get; }
 
         private IMapper mapper { get; }
 
-        public ShelterController(ILogger<AnimalController> logger, IMapper mapper, IShelterCreateService shelterCreateService, IShelterGetService shelterGetService)
+        public ShelterController(ILogger<AnimalController> logger, IMapper mapper, IShelterCreateService shelterCreateService, 
+            IShelterGetService shelterGetService, IShelterDeleteService shelterDeleteService, IShelterUpdateService shelterUpdateService)
         {
             this.logger = logger;
             this.shelterCreateService = shelterCreateService;
             this.shelterGetService = shelterGetService;
+            this.shelterDeleteService = shelterDeleteService;
+            this.shelterUpdateService = shelterUpdateService;
             this.mapper = mapper;
         }
 
@@ -60,6 +65,25 @@ namespace WebAPI.Controllers
             return mapper.Map<ShelterDTO>(await shelterGetService.AsyncGet(new ShelterIdentityModel(shelterId)));
         }
 
+        [HttpPut]
+        [Route("{shelterId}")]
+        public async Task DeleteAsync(int shelterId)
+        {
+            logger.LogTrace($"{nameof(this.DeleteAsync)} called for {shelterId}");
 
+            await shelterDeleteService.AsyncDelete(new ShelterIdentityModel(shelterId));
+
+        }
+
+        [HttpPatch]
+        [Route("")]
+        public async Task<ShelterDTO> PatchAsync(ShelterDTO shelter)
+        {
+            logger.LogTrace($"{nameof(this.PatchAsync)} called");
+
+            var result = await shelterUpdateService.AsyncUpdate(mapper.Map<ShelterUpdateModel>(shelter));
+
+            return mapper.Map<ShelterDTO>(result);
+        }
     }
 }

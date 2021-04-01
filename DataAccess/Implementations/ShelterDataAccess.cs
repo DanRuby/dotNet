@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataAccess.Contracts;
@@ -38,6 +40,34 @@ namespace DataAccess.Implementations
         {
             return mapper.Map<IEnumerable<Shelter>>
                 (await dbContext.Shelter.ToListAsync());
+        }
+
+        public async Task AsyncDelete(IShelterContainer shelterId)
+        {
+            Entities.Shelter shelter= dbContext.Shelter.Where(a => a.Id == shelterId.ShelterId).FirstOrDefault();
+
+            if (shelter == null)
+                throw new InvalidOperationException("Entity with such ID does not exist");
+
+            dbContext.Shelter.Remove(shelter);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Shelter> AsyncUpdate(ShelterUpdateModel shelter)
+        {
+            if (shelter == null)
+                throw new ArgumentNullException(nameof(shelter));
+
+            var existingEntity = await dbContext.Shelter.FirstOrDefaultAsync(e => e.Id == shelter.Id);
+
+            if (existingEntity == null)
+                throw new ArgumentException("No entity with such ID");
+
+            var res = mapper.Map(shelter, existingEntity);
+
+            dbContext.Update(res);
+            await dbContext.SaveChangesAsync();
+            return mapper.Map<Shelter>(res);
         }
 
     }

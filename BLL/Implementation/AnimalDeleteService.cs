@@ -14,7 +14,7 @@ namespace BLL.Implementation
 
         public AnimalDeleteService(IAnimalDataAccess animalDataAccess) => this.animalDataAccess = animalDataAccess;
 
-        public async Task Delete(IAnimalIdentity animalID)
+        public async Task DeleteAsynnc(IAnimalIdentity animalID)
         {
            await animalDataAccess.AsyncDelete(animalID);
         }

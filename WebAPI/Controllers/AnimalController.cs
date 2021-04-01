@@ -78,9 +78,9 @@ namespace WebAPI.Controllers
         [Route("{animalId}")]
         public async Task DeleteAsync(int animalId)
         {
-            logger.LogTrace($"{nameof(this.DeleteAsync)} called");
+            logger.LogTrace($"{nameof(this.DeleteAsync)} called for {animalId}");
 
-            await animalDeleteService.Delete(new AnimalIdentityModel(animalId));
+            await animalDeleteService.DeleteAsynnc(new AnimalIdentityModel(animalId));
 
         }
     }

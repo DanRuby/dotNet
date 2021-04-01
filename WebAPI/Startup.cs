@@ -35,6 +35,8 @@ namespace WebAPI
             services.Add(new ServiceDescriptor(typeof(IShelterValidateService), typeof(ShelterValidateService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IShelterCreateService), typeof(ShelterCreateService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IShelterGetService), typeof(ShelterGetService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IShelterDeleteService), typeof(ShelterDeleteService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IShelterUpdateService), typeof(ShelterUpdateService), ServiceLifetime.Scoped));
 
             services.Add(new ServiceDescriptor(typeof(IAnimalDataAccess), typeof(AnimalDataAccess), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IShelterDataAccess), typeof(ShelterDataAccess), ServiceLifetime.Transient));
