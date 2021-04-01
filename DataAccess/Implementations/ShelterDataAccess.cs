@@ -49,6 +49,7 @@ namespace DataAccess.Implementations
             if (shelter == null)
                 throw new InvalidOperationException("Entity with such ID does not exist");
 
+            dbContext.Animal.Where(a => a.ShelterId == shelter.Id).Load();
             dbContext.Shelter.Remove(shelter);
             await dbContext.SaveChangesAsync();
         }

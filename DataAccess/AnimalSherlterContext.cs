@@ -12,6 +12,7 @@ namespace DataAccess
         public AnimalSherlterContext(DbContextOptions<AnimalSherlterContext> options)
             : base(options)
         {
+           // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -20,8 +21,11 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
             modelBuilder.Entity<Shelter>(entity =>
             {
+
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.Address).IsRequired();
             });
@@ -31,12 +35,10 @@ namespace DataAccess
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.MoneyNeededPerMonth).IsRequired();
                 entity.Property(e => e.ArrivalDate).IsRequired();
-
-                entity.HasOne(e => e.Shelter)
-                    .WithMany(e => e.Animals)
-                    .HasForeignKey(e => e.ShelterId)
-                    .HasConstraintName("FK_Animal_Shelter");
             });
+
+            
+
         }
     }
 }

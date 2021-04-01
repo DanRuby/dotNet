@@ -21,7 +21,7 @@ namespace BLL.Implementation
             var res = await dataAccess.AsyncGet(shelter);
 
             if (res == null && shelter.ShelterId.HasValue)
-                throw new InvalidOperationException($"В базе не было найдено приюта с Id ={shelter.ShelterId}");
+                throw new InvalidOperationException("Nested entity with such ID does not exist ");
         }
     }
 }

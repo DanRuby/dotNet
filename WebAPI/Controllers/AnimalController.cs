@@ -40,6 +40,7 @@ namespace WebAPI.Controllers
         {
             logger.LogTrace($"{nameof(this.PutAsync)} called");
 
+
             var result = await animalCreateService.AsyncCreate(mapper.Map<AnimalUpdateModel>(animal));
 
             return mapper.Map<AnimalDTO>(result);

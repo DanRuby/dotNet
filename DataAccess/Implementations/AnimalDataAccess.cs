@@ -25,6 +25,7 @@ namespace DataAccess.Implementations
         public async Task<Animal> AsyncInsert(AnimalUpdateModel animal)
         {
             var data = await dbContext.AddAsync(mapper.Map<Entities.Animal>(animal));
+            
             await dbContext.SaveChangesAsync();
             return mapper.Map<Animal>(data.Entity);
         }
