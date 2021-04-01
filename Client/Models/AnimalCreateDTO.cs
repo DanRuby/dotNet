@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Client
+namespace Client.Models
 {
     public class AnimalCreateDTO
     {

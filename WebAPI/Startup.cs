@@ -30,6 +30,7 @@ namespace WebAPI
             services.Add(new ServiceDescriptor(typeof(IAnimalCreateService), typeof(AnimalCreateService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAnimalGetService), typeof(AnimalGetService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAnimalUpdateService), typeof(AnimalUpdateService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IAnimalDeleteService), typeof(AnimalDeleteService), ServiceLifetime.Scoped));
 
             services.Add(new ServiceDescriptor(typeof(IShelterValidateService), typeof(ShelterValidateService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IShelterCreateService), typeof(ShelterCreateService), ServiceLifetime.Scoped));

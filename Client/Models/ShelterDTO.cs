@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client
+namespace Client.Models
 {
-    public class ShelterDTO:ShelterCreateDTO
+    public class ShelterDTO : ShelterCreateDTO
     {
         public int Id { get; set; }
     }

@@ -12,5 +12,6 @@ namespace DataAccess.Contracts
         Task<IEnumerable<Animal>> AsyncGet();
         Task<Animal> AsyncGet(IAnimalIdentity animalId);
         Task<Animal> AsyncUpdate(AnimalUpdateModel animal);
+        public Task AsyncDelete(IAnimalIdentity animalId);
     }
 }

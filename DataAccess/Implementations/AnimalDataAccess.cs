@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataAccess.Contracts;
@@ -54,6 +55,17 @@ namespace DataAccess.Implementations
             
             return await dbContext.Animal.Include(e => e.Shelter)
                 .FirstOrDefaultAsync(e => e.Id == animal.Id);
+        }
+
+        public async Task AsyncDelete(IAnimalIdentity animalId)
+        {
+            Entities.Animal animal = dbContext.Animal.Where(a => a.Id == animalId.Id).FirstOrDefault();
+
+            if (animal == null)
+                throw new InvalidOperationException("Entity with such ID does not exist");
+
+            dbContext.Animal.Remove(animal);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

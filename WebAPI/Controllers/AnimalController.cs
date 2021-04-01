@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using BLL.Contracts;
 using AutoMapper;
 using Domain.Models;
-using Client;
+using Client.Models;
 
 namespace WebAPI.Controllers
 {
@@ -20,14 +20,17 @@ namespace WebAPI.Controllers
         private IAnimalCreateService animalCreateService { get; }
         private IAnimalGetService animalGetService { get; }
         private IAnimalUpdateService animalUpdateService { get; }
+        private IAnimalDeleteService animalDeleteService { get; }
         private IMapper mapper { get; }
 
-        public AnimalController(ILogger<AnimalController> logger, IMapper mapper, IAnimalUpdateService animalUpdateService, IAnimalGetService animalGetService, IAnimalCreateService animalCreateService)
+        public AnimalController(ILogger<AnimalController> logger, IMapper mapper, IAnimalUpdateService animalUpdateService, 
+            IAnimalGetService animalGetService, IAnimalCreateService animalCreateService, IAnimalDeleteService animalDeleteService)
         {
             this.logger = logger;
             this.animalCreateService = animalCreateService;
             this.animalGetService = animalGetService;
             this.animalUpdateService = animalUpdateService;
+            this.animalDeleteService = animalDeleteService;
             this.mapper = mapper;
         }
 
@@ -69,6 +72,16 @@ namespace WebAPI.Controllers
             logger.LogTrace($"{nameof(this.GetAsync)} called for {animalId}");
 
             return mapper.Map<AnimalDTO>(await animalGetService.AsyncGet(new AnimalIdentityModel(animalId)));
+        }
+
+        [HttpPut]
+        [Route("{animalId}")]
+        public async Task DeleteAsync(int animalId)
+        {
+            logger.LogTrace($"{nameof(this.DeleteAsync)} called");
+
+            await animalDeleteService.Delete(new AnimalIdentityModel(animalId));
+
         }
     }
 }

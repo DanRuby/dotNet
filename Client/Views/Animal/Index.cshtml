@@ -1,0 +1,50 @@
+﻿@using Client.Models
+
+@model IEnumerable<AnimalDTO>
+
+    @{
+        ViewBag.Title = "Animal list";
+        Layout = "_Layout";
+    }
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                ID
+            </div>
+            <div class="col">
+                Name
+            </div>
+            <div class="col">
+                Birth Date
+            </div>
+            <div class="col">
+                Arrival Date
+            </div>
+            <div class="col">
+                Money Needed
+            </div>
+            
+        </div>
+        @foreach (AnimalDTO animal in Model)
+        {
+            <div class="row">
+                <div class="col">
+                    @animal.Id
+                </div>
+                <div class="col">
+                    @animal.Name
+                </div>
+                <div class="col">
+                    @animal.BirthDate
+                </div>
+                <div class="col">
+                    @animal.ArrivalDate
+                </div>
+                <div class="col">
+                    @animal.MoneyNeededPerMonth
+                </div>
+         
+            </div>
+        }
+    </div>

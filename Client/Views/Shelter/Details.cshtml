@@ -1,0 +1,35 @@
+﻿
+@model ShelterDTO
+
+    @{
+        ViewBag.Title = "Shelter";
+        Layout = "_Layout";
+    }
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            ID
+        </div>
+        <div class="col">
+            Name
+        </div>
+        <div class="col">
+            Address
+        </div>
+    </div>
+
+@{ 
+    <div class="row">
+        <div class="col">
+            @Model.Id
+        </div>
+        <div class="col">
+            @Model.Name
+        </div>
+        <div class="col">
+            @Model.Address
+        </div>
+    </div>
+}
+</div>

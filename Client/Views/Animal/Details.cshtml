@@ -1,0 +1,47 @@
+﻿@model AnimalDTO
+
+@{
+   ViewBag.Title = "Animal list";
+   Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            ID
+        </div>
+        <div class="col">
+            Name
+        </div>
+        <div class="col">
+            Birth Date
+        </div>
+        <div class="col">
+            Arrival Date
+        </div>
+        <div class="col">
+            Money Needed
+        </div>
+
+    </div>
+    @{ 
+    <div class="row">
+            <div class="col">
+                @Model.Id
+            </div>
+            <div class="col">
+                @Model.Name
+            </div>
+            <div class="col">
+                @Model.BirthDate
+            </div>
+            <div class="col">
+                @Model.ArrivalDate
+            </div>
+            <div class="col">
+                @Model.MoneyNeededPerMonth
+            </div>
+
+    </div>
+    }
+</div>

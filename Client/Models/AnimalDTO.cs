@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Client
+namespace Client.Models
 {
     public class AnimalDTO
     {

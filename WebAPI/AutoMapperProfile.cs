@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Client;
+using Client.Models;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
