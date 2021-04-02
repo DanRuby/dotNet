@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,9 +15,15 @@ namespace Client.Services
 
         public ShelterService(HttpClient httpClient) => this.httpClient = httpClient;
 
-        public Task<ShelterDTO> AddShelter(ShelterCreateDTO shelter)
+        public async Task<ShelterDTO> AddShelter(ShelterCreateDTO shelter)
         {
-            throw new NotImplementedException();
+            var jsonString = JsonSerializer.Serialize(shelter);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            using var response = await httpClient.PutAsync("http://localhost:52506/api/Shelter/", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ShelterDTO>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
         public async Task<ShelterDTO> GetShelter(int id)
@@ -33,9 +40,21 @@ namespace Client.Services
             return JsonSerializer.Deserialize <IEnumerable<ShelterDTO>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        public Task<ShelterDTO> UpdateShelter(ShelterDTO shelter)
+        public async Task<ShelterDTO> UpdateShelter(ShelterDTO shelter)
         {
-            throw new NotImplementedException();
+            var jsonString = JsonSerializer.Serialize(shelter);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            using var response = await httpClient.PatchAsync("http://localhost:52506/api/Shelter/", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ShelterDTO>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+        public async Task DeleteShelter(int id)
+        {
+            using var response = await httpClient.PutAsync($"http://localhost:52506/api/Shelter/{id}", null);
+            response.EnsureSuccessStatusCode();
         }
 
         private async Task<string> GetContentAsync(string Url)

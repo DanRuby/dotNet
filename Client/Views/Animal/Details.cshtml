@@ -1,47 +1,70 @@
 ﻿@model AnimalDTO
 
 @{
-   ViewBag.Title = "Animal list";
-   Layout = "_Layout";
+    ViewBag.Title = "Animal list";
+    Layout = "_Layout";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            ID
-        </div>
-        <div class="col">
-            Name
-        </div>
-        <div class="col">
-            Birth Date
-        </div>
-        <div class="col">
-            Arrival Date
-        </div>
-        <div class="col">
-            Money Needed
-        </div>
-
-    </div>
-    @{ 
-    <div class="row">
-            <div class="col">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoneyNeededPerMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shelter)
+            </th>
+        </tr>
+    </thead>
+    <tbody>   
+        <tr>
+            <td>
                 @Model.Id
-            </div>
-            <div class="col">
+            </td>
+            <td>
                 @Model.Name
-            </div>
-            <div class="col">
-                @Model.BirthDate
-            </div>
-            <div class="col">
-                @Model.ArrivalDate
-            </div>
-            <div class="col">
+            </td>
+            <td>
                 @Model.MoneyNeededPerMonth
-            </div>
+            </td>
+            <td>
+                @Model.BirthDate
+            </td>
+            <td>
+                @Model.ArrivalDate
+            </td>
+            @{ if (@Model.Shelter != null)
+                {
+                        <td>
+                            @Html.ActionLink(Model.Shelter.Name, "Details","Shelter", new { id = Model.Shelter.Id }, null)
+                        </td>
+                }
+                else
+                {
+                    <td>
+                        None
+                    </td>
+                }
+            }
+        </tr>
+    </tbody>
+</table>
 
-    </div>
-    }
+<div class="align-bottom">
+    @Html.ActionLink("Back to list", "Index") |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
 </div>
+        

@@ -1,4 +1,5 @@
-﻿using Client.Services;
+﻿using Client.Models;
+using Client.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,20 +27,28 @@ namespace Client.Controllers
             return View(await shelterService.GetShelter(id));
         }
 
-        // GET: ShelterController/Create
+        // GET: AnimalController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ShelterController/Create
+
+        // POST: AnimalController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                ShelterCreateDTO shelter= new ShelterCreateDTO()
+                {
+                    Name = collection["Name"],
+                    Address = collection["Address"]
+                };
+
+                var shelterlDTO = await shelterService.AddShelter(shelter);
+                return View("Details", shelterlDTO);
             }
             catch
             {
@@ -47,20 +56,50 @@ namespace Client.Controllers
             }
         }
 
-        // GET: ShelterController/Edit/5
+        // GET: AnimalController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ShelterController/Edit/5
+        // POST: AnimalController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                ShelterDTO shelter = new ShelterDTO()
+                {
+                    Id=id,
+                    Name = collection["Name"],
+                    Address = collection["Address"]
+                };
+
+                var shelterlDTO = await shelterService.UpdateShelter(shelter);
+                return View("Details", shelterlDTO);
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AnimalController/Edit/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: AnimalController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAsync(int id, IFormCollection collection)
+        {
+            try
+            {
+                await shelterService.DeleteShelter(id);
+                return View("Index", await shelterService.GetShelters());
             }
             catch
             {

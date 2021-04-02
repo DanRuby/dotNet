@@ -15,5 +15,7 @@ namespace Client.Services
         Task<ShelterDTO> UpdateShelter(ShelterDTO shelter);
 
         Task<ShelterDTO> AddShelter(ShelterCreateDTO shelter);
+
+        Task DeleteShelter(int id);
     }
 }

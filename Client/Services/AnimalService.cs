@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -19,9 +20,15 @@ namespace Client.Services
             this.httpClient = httpClient;
         }
 
-        public Task<AnimalDTO> AddAnimal(AnimalCreateDTO animal)
+        public async Task<AnimalDTO> AddAnimal(AnimalCreateDTO animal)
         {
-            throw new NotImplementedException();
+            var jsonString = JsonSerializer.Serialize(animal); 
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            using var response = await httpClient.PutAsync("http://localhost:52506/api/Animal/", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<AnimalDTO>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
         public async Task<AnimalDTO> GetAnimal(int id)
@@ -39,10 +46,18 @@ namespace Client.Services
             return JsonSerializer.Deserialize<IEnumerable<AnimalDTO>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        public Task<AnimalDTO> UpdateAnimal(AnimalUpdateDTO animal)
+        public async Task<AnimalDTO> UpdateAnimal(AnimalUpdateDTO animal)
         {
-            throw new NotImplementedException();
+            var jsonString = JsonSerializer.Serialize(animal);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            using var response = await httpClient.PatchAsync("http://localhost:52506/api/Animal/", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<AnimalDTO>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
+
+
 
         private async Task<string> GetContentAsync(string Url)
         {
@@ -51,6 +66,16 @@ namespace Client.Services
             response.EnsureSuccessStatusCode();
 
             return  await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task DeleteAnimal(int id)
+        {
+           
+            using var response = await httpClient.PutAsync($"http://localhost:52506/api/Animal/{id}",null);
+            response.EnsureSuccessStatusCode();
+
+           
+            
         }
     }
 }

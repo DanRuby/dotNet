@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Services;
+using Client.Models;
 
 namespace Client.Controllers
 {
@@ -32,14 +33,23 @@ namespace Client.Controllers
             return View();
         }
 
+
         // POST: AnimalController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                AnimalCreateDTO animal = new AnimalCreateDTO();
+                animal.Name=collection["Name"];
+                animal.MoneyNeededPerMonth = decimal.Parse(collection["MoneyNeededPerMonth"]);
+                animal.ArrivalDate = DateTime.Parse(collection["ArrivalDate"]);
+                animal.BirthDate = DateTime.Parse(collection["BirthDate"]);
+                animal.ShelterId = Int32.TryParse(collection["ShelterId"], out var tempVal) ? tempVal : (int?)null;
+
+                var animalDTO=await animalService.AddAnimal(animal);
+                return View("Details",animalDTO);
             }
             catch
             {
@@ -56,11 +66,42 @@ namespace Client.Controllers
         // POST: AnimalController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                AnimalUpdateDTO animal = new AnimalUpdateDTO();
+                animal.Id = id;
+                animal.Name = collection["Name"];
+                animal.MoneyNeededPerMonth = decimal.Parse(collection["MoneyNeededPerMonth"]);
+                animal.ArrivalDate = DateTime.Parse(collection["ArrivalDate"]);
+                animal.BirthDate = DateTime.Parse(collection["BirthDate"]);
+                animal.ShelterId = Int32.TryParse(collection["ShelterId"], out var tempVal) ? tempVal : (int?)null;
+
+                var animalDTO = await animalService.UpdateAnimal(animal);
+                return View("Details", animalDTO);
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AnimalController/Edit/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: AnimalController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAsync(int id, IFormCollection collection)
+        {
+            try
+            {
+                await animalService.DeleteAnimal(id);
+                return View("Index",await animalService.GetAnimals());
             }
             catch
             {

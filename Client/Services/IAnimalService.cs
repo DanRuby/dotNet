@@ -15,5 +15,7 @@ namespace Client.Services
         Task<AnimalDTO> UpdateAnimal(AnimalUpdateDTO animal);
 
         Task<AnimalDTO> AddAnimal(AnimalCreateDTO animal);
+
+        Task DeleteAnimal(int id);
     }
 }
